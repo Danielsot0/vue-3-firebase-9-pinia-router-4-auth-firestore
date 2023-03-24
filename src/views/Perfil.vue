@@ -91,15 +91,7 @@ const handleChange = (info) => {
 };
 
 const onFinish = async () => {
-    const error = await userStore.updateUser(userStore.userData.displayName);
-
-    if (fileList.value[0]) {
-        const error = await userStore.updateImg(fileList.value[0]);
-        if (error) {
-            return message.error('Problemas al subir la imagen, intentalo de nuevo');
-        }
-        message.success('Se actualizo la imagen correctamte');
-    }
+    const error = await userStore.updateUser(userStore.userData.displayName, fileList.value[0]);
 
     if (!error) {
         message.success('Se actualizó tu información correctamente')

@@ -17,6 +17,7 @@
                                 :disabled="databaseStore.loading">Eliminar</a-button>
                         </a-popconfirm>
                         <a-button type="primary" @click="router.push(`/editar/${item.id}`)">Editar</a-button>
+                        <a-button @click="copiarPortapapeles(item.id)">Copiar</a-button>
                     </a-space>
                 </template>
                 <p>{{ item.name }}</p>
@@ -46,4 +47,27 @@ const confirm = async (id) => {
 const cancel = () => {
     message.error("no se eliminó 💋");
 };
+
+const copiarPortapapeles = async(id) => {
+    if (!navigator.clipboard) {
+        return message.error('NO se pudo copiar al portapapeles');
+    }
+    const path = `${window.location.href}${id}`;
+    console.log(path)
+
+    const err = await navigator.clipboard.writeText(path);
+    if (err) {
+        message.error('No se pudo copiar al portapapeles');
+    }else{
+        message.success("Texto copiado al portapapeles");
+    }
+
+    // navigator.clipboard.writeText(path)
+    //         .then(() => {
+    //         message.success("texto copiado al portapapeles")
+    //     })
+    //         .catch(err => {
+    //         message.error('No se pudo copiar al portapapeles');
+    //         })
+}
 </script>
